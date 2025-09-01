@@ -7,6 +7,5 @@ export function getDocumentsByAuthor(docs, author) {
 }
 
 export function getDocumentsByTags(docs, tag) {
-  // return docs.filter(doc => doc.tags.includes(tag));
   return docs.filter((doc) => doc.tags.some((t) => t === tag));
 }
