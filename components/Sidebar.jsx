@@ -64,33 +64,61 @@ export default function Sidebar({ docs }) {
       return 0;
     });
 
+    // Sort non-roots by order field ascending within each group (assuming lower order means higher priority)
+    for (const key in nonRoots) {
+      nonRoots[key].sort((a, b) => {
+        if (a.order < b.order) {
+          return -1;
+        }
+        if (a.order > b.order) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
     setRootNodes(roots);
     setNonRootNodesGrouped(nonRoots);
   }, [docs, pathName]);
+
+  console.log(rootNodes, nonRootNodesGrouped);
+
+  function isActive(href) {
+    return pathName === href;
+  }
+
   return (
     <>
       <nav className="lg:block my-10">
         <ul>
           <div className="relative mt-3 pl-2">
-            <div className="absolute inset-x-0 top-0 bg-zinc-800/2.5 will-change-transform"></div>
-            <div className="absolute inset-y-0 left-2 w-px bg-zinc-900/10"></div>
-            <div className="absolute left-2 h-6 w-px bg-emerald-500"></div>
+            {/* <div className="absolute inset-x-0 top-0 bg-zinc-800/2.5 will-change-transform"></div>
+            <div className="absolute inset-y-0 left-2 w-px bg-zinc-900/10"></div> */}
+            {/* <div className="absolute left-2 h-6 w-px bg-emerald-500"></div> */}
 
-            <ul role="list" className="border-l border-transparent">
+            <ul role="list" className="">
               {rootNodes.map((rootNode) => (
                 <li key={rootNode.id} className="relative">
                   <Link
                     aria-current="page"
-                    className="flex justify-between gap-2 py-1 pl-4 pr-3 text-sm text-zinc-800 transition hover:text-teal-700"
+                    className={`flex justify-between gap-2 py-1 pl-4 pr-3 text-sm transition ${
+                      isActive(`/docs/${rootNode.id}`)
+                        ? "border-l border-emerald-500 text-emerald-600 font-medium bg-emerald-50/70"
+                        : "border-l border-zinc-900/10 text-zinc-800 hover:text-teal-700"
+                    }`}
                     href={`/docs/${rootNode.id}`}>
                     <span className="truncate">{rootNode.title}</span>
                   </Link>
                   {nonRootNodesGrouped[rootNode.id] && (
-                    <ul role="list" className="border-l border-transparent">
+                    <ul role="list" className="">
                       {nonRootNodesGrouped[rootNode.id].map((subRoot) => (
                         <li key={subRoot.id}>
                           <Link
-                            className="flex justify-between gap-2 py-1 pl-7 pr-3 text-sm text-zinc-800 transition hover:text-teal-700"
+                            className={`flex justify-between gap-2 py-1 pl-7 pr-3 text-sm text-zinc-800 transition ${
+                              isActive(`/docs/${rootNode.id}/${subRoot.id}`)
+                                ? "border-l border-emerald-500 !text-emerald-600 font-medium bg-emerald-50/70"
+                                : "border-l border-zinc-900/10 text-zinc-800 hover:text-teal-700"
+                            }`}
                             href={`/docs/${rootNode.id}/${subRoot.id}`}>
                             <span className="truncate">{subRoot.title}</span>
                           </Link>

@@ -1,6 +1,7 @@
 ---
 title: "Resources"
 date: "2024-02-22"
+order: 1
 parent: introduction
 author: Lenevoiya
 category: resources

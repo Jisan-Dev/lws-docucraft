@@ -2,6 +2,7 @@
 title: "Test"
 date: "2024-03-01"
 parent: introduction
+order: 2
 author: Brian C
 category: testing
 tags: ["test", "technology"]
