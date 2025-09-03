@@ -81,7 +81,7 @@ export default function Sidebar({ docs }) {
                 <li key={rootNode.id} className="relative">
                   <Link
                     aria-current="page"
-                    className="flex justify-between gap-2 py-1 pl-4 pr-3 text-sm text-zinc-900 transition"
+                    className="flex justify-between gap-2 py-1 pl-4 pr-3 text-sm text-zinc-800 transition hover:text-teal-700"
                     href={`/docs/${rootNode.id}`}>
                     <span className="truncate">{rootNode.title}</span>
                   </Link>
@@ -90,7 +90,7 @@ export default function Sidebar({ docs }) {
                       {nonRootNodesGrouped[rootNode.id].map((subRoot) => (
                         <li key={subRoot.id}>
                           <Link
-                            className="flex justify-between gap-2 py-1 pl-7 pr-3 text-sm text-zinc-600 transition hover:text-zinc-900"
+                            className="flex justify-between gap-2 py-1 pl-7 pr-3 text-sm text-zinc-800 transition hover:text-teal-700"
                             href={`/docs/${rootNode.id}/${subRoot.id}`}>
                             <span className="truncate">{subRoot.title}</span>
                           </Link>
